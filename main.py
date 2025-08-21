@@ -46,7 +46,12 @@ def load_qrels(qrels_file):
     with open(qrels_file, 'r') as f:
         for line in f:
             parts = line.strip().split()
-            if len(parts) == 3:
+            # qrels files can either be of the format
+            # <qid> <docid> <rel> (3 columns) or
+            # <qid> <unused> <docid> <rel> (4 columns, TREC style)
+            if len(parts) == 4:
+                qid, _, docid, rel = parts
+            elif len(parts) == 3:
                 qid, docid, rel = parts
             else:
                 raise Exception(f"incorrect line: {line.strip()}")
