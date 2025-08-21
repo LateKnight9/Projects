@@ -93,27 +93,27 @@ def main():
     """main function for searching"""
 
     """=======TODO: Choose Dataset======="""
-    # You can choose from "cranfield", "apnews", and "new_faculty" for dataset
-    cname = "apnews"
+    # You can choose from "cranfield", "cranfield", and "new_faculty" for dataset
+    cranfield = "cranfield"
     """============================"""
 
-    base_dir = f"data/{cname}"
+    base_dir = f"data/{cranfield}"
     query_id_start = {
-        "apnews": 0,
+        "cranfield": 0,
         "cranfield": 1,
         "new_faculty": 1,
-    }[cname]
+    }[cranfield]
 
     # Paths to the raw corpus, queries, and relevance label files
-    corpus_file = os.path.join(base_dir, f"{cname}.dat")
-    query_file = os.path.join(base_dir, f"{cname}-queries.txt")
-    qrels_file = os.path.join(base_dir, f"{cname}-qrels.txt")
+    corpus_file = os.path.join(base_dir, f"{cranfield}.dat")
+    query_file = os.path.join(base_dir, f"{cranfield}-queries.txt")
+    qrels_file = os.path.join(base_dir, f"{cranfield}-qrels.txt")
     # processed_corpus_dir = os.path.join(base_dir, "corpus")
 
     # Directories where the processed corpus and index will be stored for toolkit
-    processed_corpus_dir = f"processed_corpus/{cname}"
+    processed_corpus_dir = f"processed_corpus/{cranfield}"
     os.makedirs(processed_corpus_dir, exist_ok=True)
-    index_dir = f"indexes/{cname}"
+    index_dir = f"indexes/{cranfield}"
 
     # Preprocess corpus
     if not os.path.exists(processed_corpus_dir) or not os.listdir(processed_corpus_dir):
@@ -153,9 +153,10 @@ def main():
     print(f"NDCG@{topk}: {ndcg:.4f}")
 
     # Save results
-    with open(f"results_{cname}.json", "w") as f:
+    with open(f"results_{cranfield}.json", "w") as f:
         json.dump({"results": results, "ndcg": ndcg}, f, indent=2)
 
 
 if __name__ == "__main__":
     main()
+
